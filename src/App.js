@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+ import Counter from "./Counter";
+import CounterHook from "./CounterHook";
+import React, { useState } from "react";
 
+export const patternContext = React.createContext();
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+  const [patternColor, setPatternColor] = useState('blue');
+
+ return (
+   <patternContext.Provider value = {{ backgroundColor : patternColor}}>
+     <p>Counter</p>
+     <Counter initialCount = { 0 }></Counter>
+     <p>Counter Hook</p>
+     <CounterHook initialCount = { 0 }></CounterHook>
+     <button onClick={ () => { setPatternColor( prevColor => {
+       return prevColor === 'blue' ? 'green' : 'blue';
+     })}}> Change Pattern Color</button>
+   </patternContext.Provider>
+ )
+}
 export default App;
